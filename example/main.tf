@@ -1,13 +1,8 @@
-provider "aws" {
-  region = "ap-northeast-1"
-}
-
-resource "aws_instance" "example" {
-  ami           = "ami-0c3fd0f5d33134a76"
+module "web_server" {
+  source        = "./http_server"
   instance_type = "t3.micro"
-  user_data     = file("./user_data.sh")
 }
 
-output "example_public_dns" {
-  value = aws_instance.example.public_dns
+output "public_dns" {
+  value = module.web_server.public_dns
 }
